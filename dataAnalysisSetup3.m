@@ -14,18 +14,22 @@ locs = [];
 widths =[];
 proms = [];
 pksarea = [];
+t = [];
 
-for i=1:1:10
+for i=1:1:cols
 
     X = run19.x2(:,i);
     Y = signalFilter(run19, y_noise, x_noise, i);
 
-    [pks,ls,ps] = findpeaks(Y, X, 'MinPeakHeight', 0.02);
+    [pks,ls,ps] = findpeaks(Y, X, 'MinPeakHeight', 0.015);
 
     if (~isempty(pks))
         for j = 1:1:length(pks)
+
+            peaks = [peaks, 0];
             peaks = [peaks, pks(j)];
-            
+            peaks = [peaks, 0];
+
             DY = diff(Y);
             index = find(Y == pks(j));
 
@@ -40,31 +44,40 @@ for i=1:1:10
                     index_l = index_l - 1;
                 end
 
-                width = abs(Y(index_l - 1) - Y(index_r));
+                t = [t, X(index_l - 1)];
+                t = [t, ls(j)];
+                t = [t, X(index_r)];
+
+                width = abs(X(index_l - 1) - X(index_r));
                 widths = [widths, width];
-                
+
                 area = trapz(X(index_l - 1:index_r), Y(index_l - 1:index_r));
                 pksarea = [pksarea, area];
             end
-        end
 
-        for j = 1:1:length(ls)
-            locs = [locs, ls(j)];
+            %locs = [locs, ls(j)];
         end
-    end   
+    end
 end
 
+
 figure
-hpk = histogram(peaks, 250);
+plot(t, peaks, 'b--o')
+hold on
+plot(t, zeros(length(t),1), 'r--x')
+
+figure
+peaks1 = nonzeros(peaks);
+hpk = histogram(peaks1, 250);
 title('Histogram PeaksHeight')
 hold on
 plot(hpk.BinEdges(1:length(hpk.BinEdges) - 1) + hpk.BinWidth/2, hpk.BinCounts, '-r', 'LineWidth', 2)
 
-figure
-hlocs = histogram(locs, 250);
-title('Histogram PeaksLocation')
-hold on
-plot(hlocs.BinEdges(1:length(hlocs.BinEdges) - 1) + hlocs.BinWidth/2, hlocs.BinCounts, '-r', 'LineWidth', 2)
+% figure
+% hlocs = histogram(locs, 250);
+% title('Histogram PeaksLocation')
+% hold on
+% plot(hlocs.BinEdges(1:length(hlocs.BinEdges) - 1) + hlocs.BinWidth/2, hlocs.BinCounts, '-r', 'LineWidth', 2)
 
 figure
 hw = histogram(widths, 250);
