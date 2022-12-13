@@ -1,5 +1,9 @@
 
-file_sign = "../Run21/C2.mat";
+%file_sign = "../Run21/C2.mat";
+file_sign = "../Run19/C2.mat";
+import Functions/.*;
+addpath 'Functions';
+
 th1 = 0.001;
 th2 = 0.004;
 fcoff = 199998;
