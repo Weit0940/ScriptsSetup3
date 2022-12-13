@@ -1,7 +1,7 @@
 
 file_sign = "../Run21/C2.mat";
-th1 = 0.0005;
-th2 = 0.002;
+th1 = 0.001;
+th2 = 0.004;
 fcoff = 199998;
 
 signal = open(file_sign);

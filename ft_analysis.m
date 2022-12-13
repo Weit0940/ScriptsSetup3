@@ -31,8 +31,8 @@ figure
 %plot(x_signal, y_signal_filter, 'b')
 %hold on
 
-th1 = 0.0005;
-th2 = 0.002;
+th1 = 0.001;
+th2 = 0.004;
 
 yline(th2, 'r');
 hold on
