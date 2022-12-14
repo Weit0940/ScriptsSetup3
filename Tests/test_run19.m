@@ -46,8 +46,8 @@ if (false)
     hold on
 end
 
-th1 = 0.001;
-th2 = 0.004;
+th1 = 0.007;
+th2 = 0.008;
 
 yline(th2, 'r');
 hold on
