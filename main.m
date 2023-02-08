@@ -1,11 +1,11 @@
+% 
+% file_sign = "../Run21/C2.mat";
+% th1 = 0.006;
+% th2 = 0.007;
 
-file_sign = "../Run21/C2.mat";
+file_sign = "../Run19/C2.mat";
 th1 = 0.006;
 th2 = 0.007;
-
-% file_sign = "../Run19/C2.mat";
-% th1 = 0.007;
-% th2 = 0.008;
 
 import Functions/.*;
 addpath 'Functions';
@@ -51,7 +51,7 @@ end
 
 figure
 peaks1 = nonzeros(peaks);
-hpk = histogram(peaks1, 200);
+hpk = histogram(peaks1, 1000);
 title('Histogram PeaksHeight')
 hold on
 plot(hpk.BinEdges(1:length(hpk.BinEdges) - 1) + hpk.BinWidth/2, hpk.BinCounts, '-r', 'LineWidth', 2)
