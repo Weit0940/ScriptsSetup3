@@ -1,11 +1,14 @@
-% 
-% file_sign = "../Run21/C2.mat";
-% th1 = 0.006;
-% th2 = 0.007;
+% calcolo istogrammi altezza, area e durata dei picchi
 
+% Fascio a 84MeV
+% file_sign = "../Run21/C2.mat";
+% th1 = 0.004;
+% th2 = 0.004;
+
+% Fascio a 102.5MeV
 file_sign = "../Run19/C2.mat";
-th1 = 0.006;
-th2 = 0.007;
+th1 = 0.0015;
+th2 = 0.0015;
 
 import Functions/.*;
 addpath 'Functions';
@@ -19,11 +22,22 @@ peaks = [];
 peaks_widths =[];
 peaks_area = [];
 t_peaks = [];
+n = 20;
 
 figure
-for i=1:1:cols
+for i=1:1:n
+    i
+
     x = signal.x2(:,i);
-    y = signal.y2(:, i);
+
+    if (th1 == 0.0015)
+        y = signal.y2(:, i) - abs(mean(signal.y2(1:1000, i)));
+    end
+
+    if (th1 == 0.004)
+        y = signal.y2(:, i) + abs(mean(signal.y2(1:1000, i)));
+    end
+    
     y_filter = signal_filter(x, y, fcoff);
     [pks] = findpeaks(y_filter, x, 'MinPeakProminence', th1, 'MinPeakHeight', th2);
     if (~isempty(pks))
